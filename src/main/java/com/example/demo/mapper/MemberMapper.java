@@ -1,9 +1,10 @@
 package com.example.demo.mapper;
 
-import com.example.demo.entity.Member;
+import com.example.demo.entity.MemberEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
-    Member getMemberById(int id);
+    MemberEntity getMemberById(int id);
+    int insertMember(MemberEntity memberEntity);
 }
