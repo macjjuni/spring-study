@@ -9,6 +9,7 @@ import com.example.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -35,6 +36,18 @@ public class MemberController {
                 ResultCodeEnum.SUCCESS.getCode(),
                 ResultCodeEnum.SUCCESS.getMessage(),
                 MemberDto.of(entity));
+    }
+
+    @GetMapping("/member/list")
+    public ResponseDto<List<MemberDto>> getMemberList() {
+        List<MemberEntity> entityList =
+                Optional.ofNullable(memberService.getMemberList())
+                        .orElseThrow(() -> new GeneralException(ResultCodeEnum.MemberNotFound));
+
+        return ResponseDto.of(
+                ResultCodeEnum.SUCCESS.getCode(),
+                ResultCodeEnum.SUCCESS.getMessage(),
+                MemberDto.of(entityList));
     }
 
 

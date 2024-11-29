@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Builder
 @Setter
 @Getter
@@ -102,5 +105,24 @@ public class MemberDto {
                 .maritalStatus(memberInsertRequestDto.getMaritalStatus())
                 .education(memberInsertRequestDto.getEducation())
                 .build();
+    }
+
+    public static List<MemberDto> of(List<MemberEntity> entities) {
+        return entities.stream().map(entity -> new MemberDto(
+                entity.getId(),
+                entity.getName(),
+                entity.getPassword(),
+                entity.getEmail(),
+                entity.getPhone(),
+                entity.getAddress(),
+                entity.getCity(),
+                entity.getState(),
+                entity.getZipcode(),
+                entity.getDateOfBirth(),
+                entity.getGender(),
+                entity.getOccupation(),
+                entity.getMaritalStatus(),
+                entity.getEducation()
+        )).collect(Collectors.toList());
     }
 }
