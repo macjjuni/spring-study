@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class MemberDto {
     private int id;
     private String name;
-    private String password;
     private String email;
     private String phone;
     private String address;
@@ -28,10 +27,9 @@ public class MemberDto {
     private String education;
 
     @Builder
-    public MemberDto(int id, String name, String password, String email, String phone, String address, String city, String state, String zipcode, String dateOfBirth, String gender, String occupation, String maritalStatus, String education) {
+    public MemberDto(int id, String name, String email, String phone, String address, String city, String state, String zipcode, String dateOfBirth, String gender, String occupation, String maritalStatus, String education) {
         this.id = id;
         this.name = name;
-        this.password = password;
         this.email = email;
         this.phone = phone;
         this.address = address;
@@ -49,7 +47,6 @@ public class MemberDto {
         return MemberDto.builder()
                 .id(memberEntity.getId())
                 .name(memberEntity.getName())
-                .password(memberEntity.getPassword())
                 .email(memberEntity.getEmail())
                 .phone(memberEntity.getPhone())
                 .address(memberEntity.getAddress())
@@ -70,6 +67,12 @@ public class MemberDto {
         private String name;
         private String email;
         private String phone;
+    }
+
+    @Getter
+    public static class MemberLoginRequestDto {
+        private int id;
+        private String password;
     }
 
     @Getter
@@ -111,7 +114,6 @@ public class MemberDto {
         return entities.stream().map(entity -> new MemberDto(
                 entity.getId(),
                 entity.getName(),
-                entity.getPassword(),
                 entity.getEmail(),
                 entity.getPhone(),
                 entity.getAddress(),

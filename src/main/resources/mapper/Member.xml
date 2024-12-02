@@ -19,7 +19,8 @@
     </insert>
 
     <select id="getMemberList" resultType="com.example.demo.entity.MemberEntity">
-        SELECT * FROM member
+        SELECT id, name, email, phone, address, city, state, zipcode, dateOfBirth, gender, occupation, occupation, maritalStatus, education
+        FROM member
     </select>
 
 </mapper>

@@ -1,11 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.GeneralException;
+import com.example.demo.dto.LoginResultDto;
 import com.example.demo.dto.MemberDto;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.entity.MemberEntity;
 import com.example.demo.enumeration.ResultCodeEnum;
 import com.example.demo.service.MemberService;
+import com.example.demo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,4 +65,28 @@ public class MemberController {
                 ResultCodeEnum.SUCCESS.getMessage(),
                 memberDto);
     }
+
+    @PostMapping("/member/login")
+    public ResponseDto<LoginResultDto> loginMember(@RequestBody MemberDto.MemberLoginRequestDto req) {
+
+        // ID로 멤버 가져오기를 시도
+
+        MemberEntity entity = memberService.getMemberById(req.getId());
+
+        if (entity == null || !entity.getPassword().equals(req.getPassword())) {
+            throw new GeneralException(ResultCodeEnum.LoginFAILED);
+        }
+
+        // 토큰 생성
+        String token = JwtUtil.generateToken(MemberDto.of(entity));
+
+        return ResponseDto.of(
+                ResultCodeEnum.SUCCESS.getCode(),
+                ResultCodeEnum.SUCCESS.getMessage(),
+                LoginResultDto.builder().token(token)
+                        .expiration(JwtUtil.getExpireDate(token))
+                        .member(MemberDto.of(entity))
+                        .build());
+    }
+
 }

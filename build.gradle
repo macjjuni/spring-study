@@ -23,12 +23,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
-	annotationProcessor 'org.projectlombok:lombok:1.18.36'
 	implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
 	implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '3.0.3'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.36'
+	annotationProcessor 'org.projectlombok:lombok:1.18.36'
+
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 }
 
 tasks.named('test') {

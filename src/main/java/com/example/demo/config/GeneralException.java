@@ -10,7 +10,7 @@ public class GeneralException extends RuntimeException {
     private final ResultCodeEnum resultCode;
 
     public GeneralException(ResultCodeEnum resultCodeEnum) {
-        super();
+        super(resultCodeEnum.getMessage()); // 메시지를 설정하도록 수정
         this.resultCode = resultCodeEnum;
     }
 }
